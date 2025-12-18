@@ -13,7 +13,7 @@ import type { Screen } from '../types';
 const UserManagementApp: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<Screen>('login');
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
 
   const handleLoginSuccess = () => {
     setCurrentScreen('userList');
@@ -34,6 +34,7 @@ const UserManagementApp: React.FC = () => {
   };
 
   const handleLogout = () => {
+    logout();
     setCurrentScreen('login');
   };
 

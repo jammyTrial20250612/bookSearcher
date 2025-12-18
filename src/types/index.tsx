@@ -26,3 +26,10 @@ export interface AuthContextType {
 }
 
 export type Screen = 'login' | 'signup' | 'userList' | 'userDetail';
+
+export interface LogoutConfirmationModalProps {
+  isOpen: boolean;          // モーダルの表示状態
+  onConfirm: () => void;    // 確認時のコールバック
+  onCancel: () => void;     // キャンセル時のコールバック
+  userName: string;         // 表示するユーザー名
+}

@@ -7,8 +7,13 @@ import type { AuthContextType } from "../types";
 import { mockUsers } from "../mocks/Users";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error('useAuth must be used within AuthProvider');
+  return context;
+};
 
-const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>(mockUsers);
@@ -60,10 +65,3 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-export default AuthProvider;
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) throw new Error('useAuth must be used within AuthProvider');
-  return context;
-};

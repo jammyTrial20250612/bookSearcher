@@ -3,6 +3,8 @@
 // ============================================================================
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import LogoutConfirmationModal from "./LogoutConfirmationModal";
+import { Navigate } from 'react-router-dom';
 
 const UserListScreen: React.FC<{ onSelectUser: (userId: string) => void; onLogout: () => void }> = ({
   onSelectUser,
@@ -10,12 +12,29 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: string) => void; onLogou
 }) => {
   const { users, currentUser } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
-
+  
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.role.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const handleLogoutClick = () => {
+    setShowLogoutModal(true);
+  };
+
+  const handleLogoutConfirm = () => {
+    setShowLogoutModal(false);
+    onLogout();
+     <Navigate to="/login" replace />
+  };
+
+  const handleLogoutCancel = () => {
+    setShowLogoutModal(false);
+  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
@@ -42,12 +61,23 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: string) => void; onLogou
                 />
                 <span className="text-sm font-medium text-gray-700">{currentUser?.name}</span>
               </div>
-              <button
+              {/* <button
                 onClick={onLogout}
                 className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold py-2 px-6 rounded-xl transition duration-300 transform hover:scale-105 shadow-md"
               >
                 ログアウト
-              </button>
+              </button> */}
+                    <LogoutConfirmationModal
+                      isOpen={showLogoutModal}
+                      onConfirm={handleLogoutConfirm}
+                      onCancel={handleLogoutCancel}
+                      userName={currentUser?.name || 'ユーザー'}
+                    />
+                    
+                    <button onClick={handleLogoutClick}>
+                      ログアウト
+                    </button>
+
             </div>
           </div>
         </div>
