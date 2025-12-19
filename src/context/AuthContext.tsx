@@ -21,7 +21,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const login = async (email: string, password: string): Promise<boolean> => {
     // 簡易的な認証ロジック
     const user = users.find(u => u.email === email);
-    if (user && password === 'password123') {
+    const userPassword = users.find(p => p.password === password);
+    if (user && userPassword) {
       setCurrentUser(user);
       setIsAuthenticated(true);
       return true;
@@ -44,7 +45,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       role: 'Member',
       joinedDate: new Date().toISOString().split('T')[0],
       location: '未設定',
-      skills: []
+      skills: [],
+      password: "default000"
     };
 
     setUsers([...users, newUser]);

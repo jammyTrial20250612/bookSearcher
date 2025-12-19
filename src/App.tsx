@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { BrowserRouter as Router,Routes,Route, Navigate } from "react-router-dom";
 import UserManagementApp from "./components/UserManagementApp";
 import { AuthProvider } from "./context/AuthContext";
+import { UserProvider } from "./context/UserContext";
 import axios from "axios";
 import { setupMock } from "./mocks/api";
 import Home from "./components/Home";
@@ -26,12 +27,14 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
-            <Route path="/login" element={<UserManagementApp/>}/>
-          </Routes>
-        </Router>
+        <UserProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
+              <Route path="/login" element={<UserManagementApp/>}/>
+            </Routes>
+          </Router>
+        </UserProvider>
       </AuthProvider>
     </>
   );

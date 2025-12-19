@@ -2,7 +2,7 @@
 // 型定義
 // ============================================================================
 
-export type UserState = User & AuthContextType;
+export type UserState = User & AuthContextType & UserContextType;
 
 export default interface User {
   id: string;
@@ -14,6 +14,13 @@ export default interface User {
   joinedDate: string;
   location: string;
   skills: string[];
+  password: string;
+}
+
+export interface UserContextType {
+  user: User | null;
+  updateUser: (user: User) => void;
+  updateUserField: (field: keyof User, value: string) => void;
 }
 
 export interface AuthContextType {
@@ -25,7 +32,7 @@ export interface AuthContextType {
   logout: () => void;
 }
 
-export type Screen = 'login' | 'signup' | 'userList' | 'userDetail';
+export type Screen = 'login' | 'signup' | 'userList' | 'userDetail' | 'userEdit';
 
 export interface LogoutConfirmationModalProps {
   isOpen: boolean;          // モーダルの表示状態

@@ -12,7 +12,8 @@ export const mockUsers: User[] = [
     role: 'Senior Developer',
     joinedDate: '2023-01-15',
     location: '東京',
-    skills: ['React', 'TypeScript', 'Node.js', 'Python']
+    skills: ['React', 'TypeScript', 'Node.js', 'Python'],
+    password: "demo@example.com111",
   },
   {
     id: '2',
@@ -23,7 +24,8 @@ export const mockUsers: User[] = [
     role: 'UX Designer',
     joinedDate: '2023-03-20',
     location: '大阪',
-    skills: ['Figma', 'Sketch', 'Adobe XD', 'CSS']
+    skills: ['Figma', 'Sketch', 'Adobe XD', 'CSS'],
+    password: "tanaka@example.com222",
   },
   {
     id: '3',
@@ -34,7 +36,8 @@ export const mockUsers: User[] = [
     role: 'Backend Engineer',
     joinedDate: '2022-11-10',
     location: '福岡',
-    skills: ['Go', 'PostgreSQL', 'Docker', 'Kubernetes']
+    skills: ['Go', 'PostgreSQL', 'Docker', 'Kubernetes'],
+    password: "sato@example.com333",
   },
   {
     id: '4',
@@ -45,7 +48,8 @@ export const mockUsers: User[] = [
     role: 'Project Manager',
     joinedDate: '2023-05-01',
     location: '名古屋',
-    skills: ['Scrum', 'Agile', 'JIRA', 'Confluence']
+    skills: ['Scrum', 'Agile', 'JIRA', 'Confluence'],
+    password: "suzuki@example.com444",
   },
   {
     id: '5',
@@ -56,7 +60,8 @@ export const mockUsers: User[] = [
     role: 'Data Scientist',
     joinedDate: '2023-02-14',
     location: '横浜',
-    skills: ['Python', 'TensorFlow', 'PyTorch', 'SQL']
+    skills: ['Python', 'TensorFlow', 'PyTorch', 'SQL'],
+    password: "watanabe@exmaple.com555",
   },
   {
     id: '6',
@@ -67,7 +72,8 @@ export const mockUsers: User[] = [
     role: 'Frontend Engineer',
     joinedDate: '2023-07-22',
     location: '札幌',
-    skills: ['Vue.js', 'React', 'Three.js', 'GSAP']
+    skills: ['Vue.js', 'React', 'Three.js', 'GSAP'],
+    password: "kobayashi@example.com666",
   }
 ];
 

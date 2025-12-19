@@ -1,11 +1,14 @@
 // ============================================================================
 // ユーザー詳細画面
 // ============================================================================
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import Modal from "./Modal";
 
 const UserDetailScreen: React.FC<{ userId: string; onBack: () => void }> = ({ userId, onBack }) => {
-  const { users } = useAuth();
+  const { users,currentUser } = useAuth();
   const user = users.find(u => u.id === userId);
+  const [isOpen, setIsOpen] = useState(false);
 
   if (!user) {
     return (
@@ -44,7 +47,12 @@ const UserDetailScreen: React.FC<{ userId: string; onBack: () => void }> = ({ us
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* プロフィールヘッダー */}
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden mb-8">
-          <div className="h-32 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500"></div>
+          <div className="flex justify-end h-32 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 p-8">
+            { user.id === currentUser?.id
+            ?(<button className="bg-cyan-400 hover:bg-cyan-200 px-8 py-4 rounded-lg text-lg" onClick={() => setIsOpen(true)}>edit</button>)
+            :(<></>)}
+            {isOpen && <Modal onClose={() => setIsOpen(false)} />}
+          </div>
           <div className="px-8 pb-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-end -mt-16 mb-6">
               <img
