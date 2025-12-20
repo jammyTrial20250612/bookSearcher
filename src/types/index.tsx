@@ -5,7 +5,7 @@
 export type UserState = User & AuthContextType & UserContextType;
 
 export default interface User {
-  id: string;
+  id: number;
   email: string;
   name: string;
   avatar: string;
@@ -30,9 +30,19 @@ export interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>;
   signup: (email: string, password: string, name: string) => Promise<boolean>;
   logout: () => void;
+  // navigateTo: (screen: UserScreen, userId?: string) => void;
+  showLogoutModal: boolean;
+  openLogoutModal: () => void;
+  // closeLogoutModal: () => void;
+  // confirmLogout: () => void;
+  selectedUserId: number | null;
+  // currentScreen: UserScreen;
+  // setCurrentScreen: (currentScreen:UserScreen)=>void;
+  // loadLocalSession: ()=>void;
+  setSelectedUserId: (selectedUserId: number | null)=>void;
 }
 
-export type UserScreen = 'login' | 'signup' | 'userList' | 'userDetail';
+export type UserScreen = 'menu' | 'login' | 'signup' | 'userList' | 'userDetail' | 'bookList' | 'bookSearch';
 
 export interface LogoutConfirmationModalProps {
   isOpen: boolean;          // モーダルの表示状態

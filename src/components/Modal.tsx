@@ -1,4 +1,4 @@
-import UserEditScreen from "./UserEditScreen";
+import UserEditScreen from "./user/UserEditScreen";
 
 type Modalprops = {
     onClose: () => void

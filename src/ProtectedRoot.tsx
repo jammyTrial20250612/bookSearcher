@@ -12,7 +12,7 @@ const ProtectedRoute: React.FC<Props> = ({ children }) => {
 
   if (!isAuthenticated) {
     // ログインしていなければリダイレクト
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   return children;

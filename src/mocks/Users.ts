@@ -4,7 +4,7 @@
 import type User from "../types"; 
 export let initialMockUsers: User[] = [
   {
-    id: '1',
+    id: 1,
     email: 'demo@example.com',
     name: '山田太郎',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Yamada',
@@ -16,7 +16,7 @@ export let initialMockUsers: User[] = [
     password: "demo@example.com111",
   },
   {
-    id: '2',
+    id: 2,
     email: 'tanaka@example.com',
     name: '田中花子',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Tanaka',
@@ -28,7 +28,7 @@ export let initialMockUsers: User[] = [
     password: "tanaka@example.com222",
   },
   {
-    id: '3',
+    id: 3,
     email: 'sato@example.com',
     name: '佐藤健',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sato',
@@ -40,7 +40,7 @@ export let initialMockUsers: User[] = [
     password: "sato@example.com333",
   },
   {
-    id: '4',
+    id: 4,
     email: 'suzuki@example.com',
     name: '鈴木美咲',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Suzuki',
@@ -52,7 +52,7 @@ export let initialMockUsers: User[] = [
     password: "suzuki@example.com444",
   },
   {
-    id: '5',
+    id: 5,
     email: 'watanabe@example.com',
     name: '渡辺誠',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Watanabe',
@@ -64,7 +64,7 @@ export let initialMockUsers: User[] = [
     password: "watanabe@exmaple.com555",
   },
   {
-    id: '6',
+    id: 6,
     email: 'kobayashi@example.com',
     name: '小林優子',
     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Kobayashi',

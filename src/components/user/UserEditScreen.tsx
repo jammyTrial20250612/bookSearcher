@@ -2,8 +2,8 @@
 // ユーザー詳細画面
 // ============================================================================
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import type User from "../types";
+import { useAuth } from "../../context/AuthContext";
+import type User from "../../types";
 
 const UserEditScreen: React.FC = () => {
   const { currentUser } = useAuth();

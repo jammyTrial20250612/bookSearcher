@@ -17,7 +17,7 @@ export const setupMock = () => {
   mock.onPost("/api/users").reply((config) => {
     const newUser: User = JSON.parse(config.data);
     const users = loadUsers();
-    const newId = (users.length + 1).toString();
+    const newId = users.length + 1;
     const userWithId = { ...newUser, id: newId };
     const updatedUsers = [...users, userWithId];
     saveUsers(updatedUsers);

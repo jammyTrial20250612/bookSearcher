@@ -1,4 +1,4 @@
-import { useUser } from "../context/UserContext"
+import { useUser } from "../../context/UserContext"
 import { useState } from "react";
 const UserProfileForm: React.FC = () => {
   const { user, updateUserField } = useUser();

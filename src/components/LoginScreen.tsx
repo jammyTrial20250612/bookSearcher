@@ -1,18 +1,17 @@
 // ============================================================================
 // ログイン画面
 // ============================================================================
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
-const LoginScreen: React.FC<{ onSwitchToSignup: () => void; onLoginSuccess: () => void }> = ({
-  onSwitchToSignup,
-  onLoginSuccess
-}) => {
+const LoginScreen: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+  const navigateTo = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,13 +22,33 @@ const LoginScreen: React.FC<{ onSwitchToSignup: () => void; onLoginSuccess: () =
     setLoading(false);
 
     if (success) {
-      onLoginSuccess();
+      // onLoginSuccess();
+      navigateTo("/users");
+      console.log("login Suceeded");
+      sessionStorage.setItem('auth', 'true');
+      sessionStorage.setItem('userToken', 'abc123');
     } else {
       setError('メールアドレスまたはパスワードが正しくありません');
     }
   };
 
   // localStorage.clear();
+  const loadLocalSession = () => {
+    const sessionInfo = sessionStorage.getItem("auth");
+    if(sessionInfo ==="true"){
+      console.log("auth :",sessionInfo);
+      console.log("isAuthenticated :",isAuthenticated)
+      navigateTo("/users");
+    }else{
+      console.log("isAuthenticated :",isAuthenticated)
+      console.log("not session");
+    }
+  }
+
+  useEffect(()=>{
+    loadLocalSession();
+    console.log("useEffect");
+  },[])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
@@ -100,12 +119,11 @@ const LoginScreen: React.FC<{ onSwitchToSignup: () => void; onLoginSuccess: () =
           <div className="mt-6 text-center">
             <p className="text-purple-200 text-sm">
               アカウントをお持ちでない方は{' '}
-              <button
-                onClick={onSwitchToSignup}
+              <span
                 className="text-purple-300 hover:text-white font-semibold underline transition"
               >
-                サインアップ
-              </button>
+                <Link to="/signup">サインアップ</Link>
+              </span>
             </p>
           </div>
 

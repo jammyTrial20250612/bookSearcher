@@ -1,17 +1,20 @@
 // ============================================================================
 // ユーザー一覧画面
 // ============================================================================
-import React, { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import LogoutConfirmationModal from "./LogoutConfirmationModal";
-import { Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
+import LogoutConfirmationModal from "../LogoutConfirmationModal";
+import { useLocation, useNavigate } from 'react-router-dom';
+import UserDetailScreen from './UserDetailScreen';
 
-const UserListScreen: React.FC<{ onSelectUser: (userId: string) => void; onLogout: () => void }> = ({
+const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout: ()=>void }> = ({
   onSelectUser,
   onLogout
 }) => {
-  const { users, currentUser } = useAuth();
+  const { users, currentUser,selectedUserId, setSelectedUserId } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
+  const navigateTo = useNavigate();
+  const location = useLocation();
   
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -28,13 +31,17 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: string) => void; onLogou
   const handleLogoutConfirm = () => {
     setShowLogoutModal(false);
     onLogout();
-     <Navigate to="/login" replace />
+    navigateTo("/")
   };
 
   const handleLogoutCancel = () => {
     setShowLogoutModal(false);
   };
 
+  const goToUser = (userId:number) => {
+    setSelectedUserId(userId);
+    navigateTo(`/users/detail?id=${userId}`);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
@@ -106,10 +113,12 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: string) => void; onLogou
           {filteredUsers.map((user, index) => (
             <div
               key={user.id}
-              onClick={() => onSelectUser(user.id)}
+              // onClick={() => onSelectUser(user.id)}
+              onClick={()=>goToUser(index)}
               className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 border border-gray-100 group"
               style={{ animationDelay: `${index * 50}ms` }}
             >
+              {/* <UserDetailScreen userId={index} onBack={()=>{}}/> */}
               <div className="flex items-start space-x-4 mb-4">
                 <img
                   src={user.avatar}

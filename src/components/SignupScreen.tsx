@@ -6,11 +6,9 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import type User from "../types";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
-const SignupScreen: React.FC<{ onSwitchToLogin: () => void; onSignupSuccess: () => void }> = ({
-  onSwitchToLogin,
-  onSignupSuccess
-}) => {
+const SignupScreen: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,6 +17,7 @@ const SignupScreen: React.FC<{ onSwitchToLogin: () => void; onSignupSuccess: () 
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
   const [message, setMessage] = useState('');
+  const navigateTo = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +38,8 @@ const SignupScreen: React.FC<{ onSwitchToLogin: () => void; onSignupSuccess: () 
     setLoading(false);
 
     if (success) {
-      onSignupSuccess();
+      // onSignupSuccess();
+      navigateTo("/users");
     } else {
       setError('このメールアドレスは既に使用されています');
     }
@@ -183,12 +183,12 @@ const SignupScreen: React.FC<{ onSwitchToLogin: () => void; onSignupSuccess: () 
           <div className="mt-6 text-center">
             <p className="text-purple-200 text-sm">
               既にアカウントをお持ちの方は{' '}
-              <button
-                onClick={onSwitchToLogin}
+              <div
+                
                 className="text-purple-300 hover:text-white font-semibold underline transition"
               >
-                ログイン
-              </button>
+                <Link to="/">ログイン</Link>
+              </div>
             </p>
           </div>
         </div>
