@@ -8,10 +8,10 @@ import LoginScreen from './LoginScreen';
 import SignupScreen from './SignupScreen';
 import UserDetailScreen from './UserDetailScreen';
 import UserListScreen from "./UserListScreen"
-import type { Screen } from '../types';
+import type { UserScreen } from '../types';
 
 const UserManagementApp: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('login');
+  const [currentScreen, setCurrentScreen] = useState<UserScreen>('login');
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const { isAuthenticated, logout } = useAuth();
 

@@ -32,7 +32,7 @@ export interface AuthContextType {
   logout: () => void;
 }
 
-export type Screen = 'login' | 'signup' | 'userList' | 'userDetail' | 'userEdit';
+export type UserScreen = 'login' | 'signup' | 'userList' | 'userDetail';
 
 export interface LogoutConfirmationModalProps {
   isOpen: boolean;          // モーダルの表示状態

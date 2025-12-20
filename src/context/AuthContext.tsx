@@ -4,7 +4,7 @@
 import { useState, useContext, createContext, type ReactNode } from "react";
 import type User from "../types";
 import type { AuthContextType } from "../types";
-import { mockUsers } from "../mocks/Users";
+import { loadUsers } from "../mocks/storage";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => {
@@ -16,7 +16,7 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [users, setUsers] = useState<User[]>(mockUsers);
+  const [users, setUsers] = useState<User[]>(loadUsers());
 
   const login = async (email: string, password: string): Promise<boolean> => {
     // 簡易的な認証ロジック

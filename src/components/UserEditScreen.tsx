@@ -1,11 +1,25 @@
 // ============================================================================
 // ユーザー詳細画面
 // ============================================================================
-import { Navigate } from "react-router-dom";
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import type User from "../types";
 
 const UserEditScreen: React.FC = () => {
   const { currentUser } = useAuth();
+
+//   const [changeUserData, setchangeUserData]=useState<User>({
+//     id: currentUser?.id,
+//     email: currentUser?.email,
+//     name: currentUser?.name,
+//     avatar: currentUser?.avatar,
+//     bio: currentUser?.bio,
+//     role: currentUser?.role,
+//     joinedDate: currentUser?.joinedDate,
+//     location: currentUser?.id,
+//     skills: currentUser?.id,
+//     password: currentUser?.id,
+//   })
 
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-white to-purple-50">

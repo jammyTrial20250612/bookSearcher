@@ -4,6 +4,8 @@
 
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import type User from "../types";
+import axios from "axios";
 
 const SignupScreen: React.FC<{ onSwitchToLogin: () => void; onSignupSuccess: () => void }> = ({
   onSwitchToLogin,
@@ -16,6 +18,7 @@ const SignupScreen: React.FC<{ onSwitchToLogin: () => void; onSignupSuccess: () 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +43,48 @@ const SignupScreen: React.FC<{ onSwitchToLogin: () => void; onSignupSuccess: () 
     } else {
       setError('このメールアドレスは既に使用されています');
     }
-  };
+
+  ////
+
+    const stored = localStorage.getItem("mockUsers");
+    const users = stored ? JSON.parse(stored) : [];
+    console.log(users);
+    const signupData: User = {
+      id: (users.length+1).toString(),
+      email: email,
+      name: name,
+      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`,
+      bio: 'よろしくお願いします！',
+      role: 'Member',
+      joinedDate: new Date().toISOString().split('T')[0],
+      location: '未設定',
+      skills: [],
+      password: password,
+    };
+
+    try {
+      // モックAPIへのPOST（ここではJSONPlaceholderを例に）
+      const response = await axios.post('/api/users', signupData);
+
+      if(response.status === 201){
+        const newUser = await response.data;
+        // const stored = localStorage.getItem("mockUsers")
+        // const users = stored ? JSON.parse(stored) : [];
+        // users.push(newUser);
+        // localStorage.setItem("mockUsers", JSON.stringify(users));
+
+        console.log('登録成功:', newUser);
+        setMessage('登録が完了しました！');
+      } else {
+        setMessage('登録に失敗しました');
+      }
+    } catch (error) {
+      console.error('エラー:', error);
+      setMessage('エラーが発生しました');
+    }
+  ////
+
+    };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">

@@ -1,8 +1,26 @@
 // mock/api.ts
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { mockUsers } from "./Users";
+import { loadUsers, saveUsers } from "./storage";
+import type User from "../types";
+
 export const setupMock = () => {
-   const mock = new MockAdapter(axios);
-   mock.onGet("/api/users").reply(200, mockUsers);
+  const mock = new MockAdapter(axios, { delayResponse: 300 });
+
+  // mock.onGet("/api/users").reply(200, mockUsers);
+  mock.onGet("/api/users").reply(() => {
+    const users = loadUsers();
+    return [200, users];
+  });
+
+  // mock/api.ts
+  mock.onPost("/api/users").reply((config) => {
+    const newUser: User = JSON.parse(config.data);
+    const users = loadUsers();
+    const newId = (users.length + 1).toString();
+    const userWithId = { ...newUser, id: newId };
+    const updatedUsers = [...users, userWithId];
+    saveUsers(updatedUsers);
+    return [201, userWithId];
+  });
 };

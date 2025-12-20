@@ -2,7 +2,7 @@
 // モックデータ
 // ============================================================================
 import type User from "../types"; 
-export const mockUsers: User[] = [
+export let initialMockUsers: User[] = [
   {
     id: '1',
     email: 'demo@example.com',
@@ -76,6 +76,3 @@ export const mockUsers: User[] = [
     password: "kobayashi@example.com666",
   }
 ];
-
-
-
