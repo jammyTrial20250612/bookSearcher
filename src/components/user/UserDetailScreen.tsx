@@ -1,20 +1,40 @@
 // ============================================================================
 // ユーザー詳細画面
 // ============================================================================
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Modal from "../Modal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import type User from "../../types";
 
-const UserDetailScreen: React.FC<{ userId: number}> = ({
-  userId
-}) => {
-  const { users, currentUser } = useAuth();
-  const user = users.find((u) => u.id === userId+1);
+const UserDetailScreen: React.FC = () => {
+  const { users, currentUser, selectedUserId, setSelectedUserId } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const navigateTo = useNavigate(); 
+  const navigateTo = useNavigate();
+  const [useIdState, setuserIdState]=useState<number>(0);
+  const location = useLocation();
+  const state = location.state as
+    | { currentUserId: number; from: "ownButton" }
+    | { selectedUserId: number; from: "userList" };
+  if (state?.from === "ownButton") {
+    const { currentUserId } = state;
+    setSelectedUserId(currentUserId);
+  } 
+  if (state?.from === "userList") {
+    const { selectedUserId } = state;
+    setSelectedUserId(selectedUserId+1);
+  }
 
-  const handleBack = () =>{
+  const userId = useMemo(() => {
+    const idParam = new URLSearchParams(location.search).get("id");
+    const parsed = Number(idParam);
+    return parsed;
+  }, [location.search]);
+
+  console.log(userId);
+  const user = users.find((u) => u.id === selectedUserId);
+
+  const handleBack = () => {
     navigateTo(-1);
   };
 

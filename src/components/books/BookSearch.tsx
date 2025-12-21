@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import LogoutConfirmationModal from "../LogoutConfirmationModal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import React from "react";
 import { useBook } from "../../context/BookContext";
 import type { ReviewInfo } from "../../types";
@@ -37,6 +37,65 @@ const BookSearch:React.FC<BookSearchProps>=({onLogout})=>{
                 書籍一覧
               </h1>
             </div>
+            <ul className="flex">
+              <li>
+                <Link to="/loggedIn/menu" className="flex hover:bg-red-400 bg-white px-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+                    />
+                  </svg>
+                  <div className="px-4">menu</div>
+                </Link>
+              </li>
+              <li>
+                <Link to="/loggedIn/users" className="flex hover:bg-yellow-400 bg-white px-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
+                    />
+                  </svg>
+                  <div className="px-4">users</div>
+                </Link>
+              </li>
+              <li>
+                <Link to="/loggedIn/books" className="flex hover:bg-green-400 bg-white px-4">
+                  <svg
+                    className="size-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"
+                    />
+                  </svg>
+                  <div className="px-4">book search</div>
+                </Link>
+              </li>
+            </ul>
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 rounded-xl">
                 <img
@@ -46,12 +105,12 @@ const BookSearch:React.FC<BookSearchProps>=({onLogout})=>{
                 />
                 <span className="text-sm font-medium text-gray-700">{currentUser?.name}</span>
               </div>
-              {/* <button
+              <button
                 onClick={onLogout}
                 className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold py-2 px-6 rounded-xl transition duration-300 transform hover:scale-105 shadow-md"
               >
                 ログアウト
-              </button> */}
+              </button>
 
             </div>
           </div>

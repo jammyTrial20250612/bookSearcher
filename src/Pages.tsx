@@ -1,6 +1,6 @@
 import "./index.css";
 import App from "./App.tsx";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, Routes,Route } from "react-router-dom";
 import UserManagementApp from "./components/user/UserManagementApp";
 import axios from "axios";
@@ -20,6 +20,7 @@ setupMock();
 const Pages=()=>{
   const { isAuthenticated } = useAuth();
   const location = useLocation();
+
   useEffect(() => {
     axios.get("/api/users").then((response) => {
       console.log(response.data);
@@ -27,6 +28,7 @@ const Pages=()=>{
   }, []);
 
   const { selectedUserId } = useAuth();
+  const [ userId, setUserId ]=useState<number>(0);
   if(selectedUserId!==null){
     selectedUserId
   }
@@ -53,8 +55,9 @@ const Pages=()=>{
                 />}/>
                 <Route path="/loggedIn/users" element={<UserManagementApp />}/>
                 {/* <Route path={`/users?id=${selectedUserId}`} element={<UserListScreen onSelectUser={()=>selectedUserId} onLogout={()=>{}}/>}/> */}
-                {selectedUserId!==null ?<Route path={`/loggedIn/users/detail`} element={<UserDetailScreen userId={selectedUserId}/>}/>:<></>}
+                {/* {selectedUserId!==null ?<Route path={`/loggedIn/users/detail`} element={<UserDetailScreen userId={selectedUserId}/>}/>:<></>} */}
                 {/* <Route path="/user/edit" element={<UserEditScreen />}/> */}
+                {selectedUserId!==null ?<Route path={`/loggedIn/users/detail`} element={<UserDetailScreen />}/>:<></>}
               </Route>
             </Routes>
     </>
