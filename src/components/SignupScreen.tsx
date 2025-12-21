@@ -39,7 +39,7 @@ const SignupScreen: React.FC = () => {
 
     if (success) {
       // onSignupSuccess();
-      navigateTo("/users");
+      navigateTo("/loggedIn/users");
     } else {
       setError('このメールアドレスは既に使用されています');
     }
@@ -48,7 +48,6 @@ const SignupScreen: React.FC = () => {
 
     const stored = localStorage.getItem("mockUsers");
     const users = stored ? JSON.parse(stored) : [];
-    console.log(users);
     const signupData: User = {
       id: (users.length+1).toString(),
       email: email,
@@ -183,12 +182,12 @@ const SignupScreen: React.FC = () => {
           <div className="mt-6 text-center">
             <p className="text-purple-200 text-sm">
               既にアカウントをお持ちの方は{' '}
-              <div
+              <span
                 
                 className="text-purple-300 hover:text-white font-semibold underline transition"
               >
                 <Link to="/">ログイン</Link>
-              </div>
+              </span>
             </p>
           </div>
         </div>

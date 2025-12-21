@@ -40,7 +40,7 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout
 
   const goToUser = (userId:number) => {
     setSelectedUserId(userId);
-    navigateTo(`/users/detail?id=${userId}`);
+    navigateTo(`/loggedIn/users/detail?id=${userId}`);
   };
 
   return (

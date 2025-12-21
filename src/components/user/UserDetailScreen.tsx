@@ -4,16 +4,19 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Modal from "../Modal";
+import { useNavigate } from "react-router-dom";
 
-const UserDetailScreen: React.FC<{ userId: number; onBack: () => void }> = ({
-  userId,
-  onBack,
+const UserDetailScreen: React.FC<{ userId: number}> = ({
+  userId
 }) => {
   const { users, currentUser } = useAuth();
   const user = users.find((u) => u.id === userId+1);
   const [isOpen, setIsOpen] = useState(false);
+  const navigateTo = useNavigate(); 
 
-  console.log("users",users)
+  const handleBack = () =>{
+    navigateTo(-1);
+  };
 
   if (!user) {
     return (
@@ -21,7 +24,7 @@ const UserDetailScreen: React.FC<{ userId: number; onBack: () => void }> = ({
         <div className="text-center">
           <p className="text-xl text-gray-600">ユーザーが見つかりません</p>
           <button
-            onClick={onBack}
+            onClick={handleBack}
             className="mt-4 text-purple-600 hover:text-purple-700 font-semibold"
           >
             戻る
@@ -37,7 +40,7 @@ const UserDetailScreen: React.FC<{ userId: number; onBack: () => void }> = ({
       <header className="bg-white/80 backdrop-blur-md border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <button
-            onClick={onBack}
+            onClick={handleBack}
             className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition"
           >
             <svg

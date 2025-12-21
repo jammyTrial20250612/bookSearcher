@@ -48,18 +48,9 @@ const UserManagementApp: React.FC = () => {
     logout();
     localStorage.setItem("currentScreen",'login');
     localStorage.setItem('isLoggedIn', 'false');
+    sessionStorage.setItem('auth', 'false');
   };
 
-  if (!isAuthenticated) {
-    return currentScreen === 'login' ? (
-      <LoginScreen/>
-    ) : (
-      <SignupScreen
-        onSwitchToLogin={() => setCurrentScreen('login')}
-        onSignupSuccess={handleSignupSuccess}
-      />
-    );
-  }
 
   // if (currentScreen === 'userDetail' && selectedUserId) {
   //   return <UserDetailScreen userId={selectedUserId} onBack={handleBackToList} />;

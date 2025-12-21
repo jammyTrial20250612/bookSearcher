@@ -23,7 +23,7 @@ const LoginScreen: React.FC = () => {
 
     if (success) {
       // onLoginSuccess();
-      navigateTo("/users");
+      navigateTo("/loggedIn/users");
       console.log("login Suceeded");
       sessionStorage.setItem('auth', 'true');
       sessionStorage.setItem('userToken', 'abc123');
@@ -38,7 +38,7 @@ const LoginScreen: React.FC = () => {
     if(sessionInfo ==="true"){
       console.log("auth :",sessionInfo);
       console.log("isAuthenticated :",isAuthenticated)
-      navigateTo("/users");
+      navigateTo("/loggedIn/users");
     }else{
       console.log("isAuthenticated :",isAuthenticated)
       console.log("not session");
