@@ -40,6 +40,7 @@ export interface AuthContextType {
   // setCurrentScreen: (currentScreen:UserScreen)=>void;
   // loadLocalSession: ()=>void;
   setSelectedUserId: (selectedUserId: number | null)=>void;
+  checkLoggedIn: ()=>boolean;
 }
 
 export type UserScreen = 'menu' | 'login' | 'signup' | 'userList' | 'userDetail' | 'bookList' | 'bookSearch';
@@ -49,4 +50,24 @@ export interface LogoutConfirmationModalProps {
   onConfirm: () => void;    // 確認時のコールバック
   onCancel: () => void;     // キャンセル時のコールバック
   userName: string;         // 表示するユーザー名
+}
+
+export type ReviewInfo = {
+  id: number,
+  userId: number,
+  userName: string;
+  review: string,
+}
+
+export type Book = {
+  id: number,
+  title: string,
+  author: string,
+  content: string,
+  imageUrl: string,
+  reviewInfo: ReviewInfo[];
+}
+
+export interface BookContextType {
+  books: Book[];
 }

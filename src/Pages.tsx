@@ -8,13 +8,12 @@ import { setupMock } from "./mocks/api";
 import ProtectedRoute from "./ProtectedRoot";
 import MenuScreen from "./components/MenuScreen";
 import UserDetailScreen from "./components/user/UserDetailScreen";
-import UserListScreen from "./components/user/UserListScreen";
-import UserEditScreen from "./components/user/UserEditScreen";
 import SignupScreen from "./components/SignupScreen.tsx";
 import { useAuth } from "./context/AuthContext";
 import ProtectedLayout from "./ProtectedLayout.tsx";
 import PublicOnlyRoute from "./PublicOnlyRoute.tsx";
 import PublicOnlyLayout from "./PublicOnlyLayout.tsx";
+import BookSearch from "./components/books/BookSearch.tsx";
 
 setupMock();
 
@@ -30,11 +29,10 @@ const Pages=()=>{
   const { selectedUserId } = useAuth();
   if(selectedUserId!==null){
     selectedUserId
-  } else {
-
   }
 
   useEffect(()=>{
+
   },[location.search])
 
   return (
@@ -49,7 +47,10 @@ const Pages=()=>{
                 path="/loggedIn"
                 element={<ProtectedRoute><ProtectedLayout/></ProtectedRoute>}
               >
-                <Route path="/loggedIn/menu" element={<ProtectedRoute><MenuScreen /></ProtectedRoute>}/>
+                <Route path="/loggedIn/menu" element={<MenuScreen />}/>
+                <Route path="/loggedIn/books" element={<BookSearch
+                  reviewInfo={[{ id: 1, userId: 4, userName: "Mike", review: "森の描写が美しかった" }]} onLogout={() =>{}}
+                />}/>
                 <Route path="/loggedIn/users" element={<UserManagementApp />}/>
                 {/* <Route path={`/users?id=${selectedUserId}`} element={<UserListScreen onSelectUser={()=>selectedUserId} onLogout={()=>{}}/>}/> */}
                 {selectedUserId!==null ?<Route path={`/loggedIn/users/detail`} element={<UserDetailScreen userId={selectedUserId}/>}/>:<></>}

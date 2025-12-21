@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-type UserScreen = 'menu' | 'login' | 'signup' | 'userList' | 'userDetail' | 'bookList' | 'bookSearch';
 const MenuScreen: React.FC = () => {
-  const { currentUser, openLogoutModal } = useAuth();
+  const { currentUser, openLogoutModal, checkLoggedIn } = useAuth();
   const [page, setPage] = useState<string>('menu');
   const navigate = useNavigate();
 
@@ -13,12 +12,12 @@ const MenuScreen: React.FC = () => {
     setPage(title);
     navigate(page);
   }
-  const pages = ["/","/login","/menu","/users","/user/edit","/user/signup"]
+  const pages = ["/loggedIn/menu","/loggedIn/users","/loggedIn/books"]
   const [pageTitle,setpageTitle] =useState(pages[0]);
 
   const menuItems = [
     {
-      id: 'userList',
+      id: pages[0],
       title: 'ユーザー管理',
       description: 'ユーザーの一覧と詳細を確認',
       icon: (
@@ -29,7 +28,7 @@ const MenuScreen: React.FC = () => {
       color: 'from-purple-400 to-pink-600'
     },
     {
-      id: 'bookList',
+      id: pages[1],
       title: '書籍一覧',
       description: '登録されている書籍を閲覧',
       icon: (
@@ -40,7 +39,7 @@ const MenuScreen: React.FC = () => {
       color: 'from-blue-400 to-cyan-600'
     },
     {
-      id: 'bookSearch',
+      id: pages[2],
       title: '書籍検索',
       description: '書籍を検索して探す',
       icon: (
@@ -103,7 +102,7 @@ const MenuScreen: React.FC = () => {
           {pages.map((item, index) => (
             <div
               key={item}
-              onClick={() => movePage(item)}
+              // onClick={() => movePage(item)}
               className="bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 border border-gray-100 group"
               style={{ animationDelay: `${index * 100}ms` }}
             >

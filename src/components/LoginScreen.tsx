@@ -23,7 +23,7 @@ const LoginScreen: React.FC = () => {
 
     if (success) {
       // onLoginSuccess();
-      navigateTo("/loggedIn/users");
+      navigateTo("/loggedIn/menu");
       console.log("login Suceeded");
       sessionStorage.setItem('auth', 'true');
       sessionStorage.setItem('userToken', 'abc123');
@@ -33,22 +33,22 @@ const LoginScreen: React.FC = () => {
   };
 
   // localStorage.clear();
-  const loadLocalSession = () => {
-    const sessionInfo = sessionStorage.getItem("auth");
-    if(sessionInfo ==="true"){
-      console.log("auth :",sessionInfo);
-      console.log("isAuthenticated :",isAuthenticated)
-      navigateTo("/loggedIn/users");
-    }else{
-      console.log("isAuthenticated :",isAuthenticated)
-      console.log("not session");
-    }
-  }
+  // const loadLocalSession = () => {
+  //   const sessionInfo = sessionStorage.getItem("auth");
+  //   if(sessionInfo ==="true"){
+  //     console.log("auth :",sessionInfo);
+  //     console.log("isAuthenticated :",isAuthenticated)
+  //     navigateTo("/loggedIn/users");
+  //   }else{
+  //     console.log("isAuthenticated :",isAuthenticated)
+  //     console.log("not session");
+  //   }
+  // }
 
-  useEffect(()=>{
-    loadLocalSession();
-    console.log("useEffect");
-  },[])
+  // useEffect(()=>{
+  //   loadLocalSession();
+  //   console.log("useEffect");
+  // },[])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">

@@ -100,6 +100,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     logout();
   };
 
+  const checkLoggedIn=()=>{
+    const sessionInfo = sessionStorage.getItem("auth");
+    if(sessionInfo ==="true"){
+      console.log("auth :",sessionInfo);
+      console.log("isAuthenticated :",isAuthenticated)
+      return true;
+    }else{
+      console.log("not session");
+      console.log("isAuthenticated :",isAuthenticated);
+      return false;
+    }
+  }
+
+
   return (
     <AuthContext.Provider
       value={{
@@ -112,7 +126,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         showLogoutModal,
         openLogoutModal,
         selectedUserId,
-        setSelectedUserId
+        setSelectedUserId,
+        checkLoggedIn
       }}
     >
       {children}
