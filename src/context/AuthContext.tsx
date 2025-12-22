@@ -89,7 +89,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   // // 画面遷移関数
-  // const navigateTo = (screen: UserScreen, userId?: string) => {
   const openLogoutModal = () => {
     setShowLogoutModal(true);
   };
@@ -125,6 +124,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     sessionStorage.setItem('auth', 'false');
   };
 
+  const handleAddFavorite = () => {
+    console.log("favorite");
+  }
 
   return (
     <AuthContext.Provider
@@ -141,7 +143,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setSelectedUserId,
         checkLoggedIn,
         handleSelectUser,
-        handleLogout
+        handleLogout,
+        handleAddFavorite
       }}
     >
       {children}

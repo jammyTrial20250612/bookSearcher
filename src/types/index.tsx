@@ -41,8 +41,9 @@ export interface AuthContextType {
   // loadLocalSession: ()=>void;
   setSelectedUserId: (selectedUserId: number | null)=>void;
   checkLoggedIn: ()=>boolean;
-  handleSelectUser: (userId: number)=>void,
+  handleSelectUser: (userId: number)=>void;
   handleLogout: ()=>void;
+  handleAddFavorite: ()=>void;
 }
 
 export type UserScreen = 'menu' | 'login' | 'signup' | 'userList' | 'userDetail' | 'bookList' | 'bookSearch';
@@ -73,8 +74,6 @@ export type Book = {
 export interface BookContextType {
   books: Book[];
 }
-
-
 
 export type ItemObj = {
   title: string,

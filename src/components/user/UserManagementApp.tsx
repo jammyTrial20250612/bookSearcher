@@ -56,7 +56,7 @@ const UserManagementApp: React.FC = () => {
   //   return <UserDetailScreen userId={selectedUserId} onBack={handleBackToList} />;
   // }
 
-  return <UserListScreen onSelectUser={handleSelectUser} onLogout={handleLogout} />;
+  // return <UserListScreen onSelectUser={handleSelectUser} onLogout={handleLogout} />;
 };
 
 export default UserManagementApp;
