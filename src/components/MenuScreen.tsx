@@ -12,93 +12,31 @@ const MenuScreen: React.FC = () => {
     setPage(title);
     navigate(page);
   };
-  const pages = ["/loggedIn/menu", "/loggedIn/users", "/loggedIn/books", "/loggedIn/api"];
-  const [pageTitle, setpageTitle] = useState(pages[0]);
-
+  const pages = ["/loggedIn/menu", "/loggedIn/users", "/loggedIn/api", "/loggedIn/books"];
   const menuItems = [
     {
       id: pages[0],
-      title: "ユーザー管理",
-      description: "ユーザーの一覧と詳細を確認",
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-          />
-        </svg>
-      ),
-      color: "from-purple-400 to-pink-600",
+      title: "menu",
+      description: "使える機能の一覧です。",
+      color: "from-red-400 to-pink-600",
     },
     {
       id: pages[1],
-      title: "書籍一覧",
-      description: "登録されている書籍を閲覧",
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-          />
-        </svg>
-      ),
+      title: "users",
+      description: "登録しているユーザーアカウントの一覧画面です。",
       color: "from-blue-400 to-cyan-600",
     },
     {
       id: pages[2],
-      title: "書籍検索",
-      description: "書籍を検索して探す",
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
-      ),
+      title: "book search",
+      description: "楽天ブックスの書籍検索APIから、タイトルで検索した書籍一覧を見れます。",
       color: "from-green-400 to-emerald-600",
     },
     {
       id: pages[3],
-      title: "楽天ブックス書籍検索API",
-      description: "書籍を検索して探す",
-      icon: (
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
-      ),
-      color: "from-green-400 to-emerald-600",
+      title: "favorite",
+      description: "book searchで検索した書籍を、お気に入りに追加して、一覧表示で確認できる画面です。",
+      color: "from-yellow-400 to-emerald-600",
     },
   ];
 
@@ -125,7 +63,7 @@ const MenuScreen: React.FC = () => {
                 </svg>
               </div>
               <h1
-                className="text-2xl font-bold text-gray-900"
+                className="text-2xl font-bold text-gray-900 w-50"
                 style={{ fontFamily: '"DM Serif Display", serif' }}
               >
                 メニュー
@@ -134,59 +72,34 @@ const MenuScreen: React.FC = () => {
             <ul className="flex">
               <li>
                 <Link to="/loggedIn/menu" className="flex hover:bg-red-400 bg-white px-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
-                    />
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
                   </svg>
                   <div className="px-4">menu</div>
                 </Link>
               </li>
               <li>
-                <Link to="/loggedIn/users" className="flex hover:bg-yellow-400 bg-white px-4">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
-                    />
+                <Link to="/loggedIn/users" className="flex hover:bg-blue-400 bg-white px-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                   </svg>
                   <div className="px-4">users</div>
                 </Link>
               </li>
               <li>
                 <Link to="/loggedIn/api" className="flex hover:bg-green-400 bg-white px-4">
-                  <svg
-                    className="size-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"
-                    />
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
                   </svg>
                   <div className="px-4">book search</div>
+                </Link>
+              </li>
+              <li>
+                <Link to="/loggedIn/books" className="flex hover:bg-yellow-400 bg-white px-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                  </svg>
+                  <div className="px-4">favorite</div>
                 </Link>
               </li>
             </ul>
@@ -224,16 +137,20 @@ const MenuScreen: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {pages.map((item, index) => (
+          {menuItems.map((item, index) => (
+            <Link to={`${item.id}`}>
             <div
-              key={item}
+              key={index}
               // onClick={() => movePage(item)}
               className="bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 border border-gray-100 group"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
-                <Link to={`${item}`}>{item}</Link>
+                {item.title}
               </h3>
+              <div>
+                {item.description}
+              </div>
               <div className="mt-6 flex items-center text-purple-600 font-semibold text-sm group-hover:translate-x-2 transition-transform">
                 開く
                 <svg
@@ -251,6 +168,7 @@ const MenuScreen: React.FC = () => {
                 </svg>
               </div>
             </div>
+            </Link>
           ))}
         </div>
       </main>

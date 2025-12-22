@@ -41,6 +41,8 @@ export interface AuthContextType {
   // loadLocalSession: ()=>void;
   setSelectedUserId: (selectedUserId: number | null)=>void;
   checkLoggedIn: ()=>boolean;
+  handleSelectUser: (userId: number)=>void,
+  handleLogout: ()=>void;
 }
 
 export type UserScreen = 'menu' | 'login' | 'signup' | 'userList' | 'userDetail' | 'bookList' | 'bookSearch';
@@ -79,6 +81,12 @@ export type ItemObj = {
   itemPrice: number,
   itemUrl: string,
   mediumImageUrl: string,
+  author: string,
+  authorKana: string,
+  contents: string,
+  isbn: string,
+  itemCaption: string,
+  publisherName: string
 }
 
 export type Item = {

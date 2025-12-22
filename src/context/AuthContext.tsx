@@ -113,6 +113,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
 
+  const handleSelectUser = (userId: number) => {
+    setSelectedUserId(userId);
+    localStorage.setItem("currentScreen",'userDetail');
+  };
+
+  const handleLogout = () => {
+    logout();
+    localStorage.setItem("currentScreen",'login');
+    localStorage.setItem('isLoggedIn', 'false');
+    sessionStorage.setItem('auth', 'false');
+  };
+
 
   return (
     <AuthContext.Provider
@@ -127,7 +139,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         openLogoutModal,
         selectedUserId,
         setSelectedUserId,
-        checkLoggedIn
+        checkLoggedIn,
+        handleSelectUser,
+        handleLogout
       }}
     >
       {children}

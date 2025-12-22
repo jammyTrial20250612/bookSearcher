@@ -15,6 +15,7 @@ import PublicOnlyRoute from "./PublicOnlyRoute.tsx";
 import PublicOnlyLayout from "./PublicOnlyLayout.tsx";
 import BookSearch from "./components/books/BookSearch.tsx";
 import BookAPI from "./components/books/BookAPI.tsx";
+import UserListScreen from "./components/user/UserListScreen.tsx";
 
 setupMock();
 
@@ -40,6 +41,7 @@ const Pages=()=>{
 
   return (
     <>
+    <div className="min-h-screen overflow-y-scroll">
             <Routes>
               <Route
               element={<PublicOnlyRoute><PublicOnlyLayout/></PublicOnlyRoute>}>
@@ -54,7 +56,8 @@ const Pages=()=>{
                 <Route path="/loggedIn/books" element={<BookSearch
                   reviewInfo={[{ id: 1, userId: 4, userName: "Mike", review: "森の描写が美しかった" }]} onLogout={() =>{}}
                 />}/>
-                <Route path="/loggedIn/users" element={<UserManagementApp />}/>
+                {/* <Route path="/loggedIn/users" element={<UserManagementApp />}/> */}
+                <Route path="/loggedIn/users" element={<UserListScreen />}/>
                 {/* <Route path={`/users?id=${selectedUserId}`} element={<UserListScreen onSelectUser={()=>selectedUserId} onLogout={()=>{}}/>}/> */}
                 {/* {selectedUserId!==null ?<Route path={`/loggedIn/users/detail`} element={<UserDetailScreen userId={selectedUserId}/>}/>:<></>} */}
                 {/* <Route path="/user/edit" element={<UserEditScreen />}/> */}
@@ -62,6 +65,7 @@ const Pages=()=>{
                 <Route path="/loggedIn/api" element={<BookAPI />}/>
               </Route>
             </Routes>
+      </div>
     </>
    );
 }
