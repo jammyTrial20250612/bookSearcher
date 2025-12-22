@@ -2,7 +2,6 @@ import "./index.css";
 import App from "./App.tsx";
 import { useState, useEffect } from "react";
 import { useLocation, Routes,Route } from "react-router-dom";
-import UserManagementApp from "./components/user/UserManagementApp";
 import axios from "axios";
 import { setupMock } from "./mocks/api";
 import ProtectedRoute from "./ProtectedRoot";
