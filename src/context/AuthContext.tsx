@@ -143,7 +143,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setSelectedUserId,
         checkLoggedIn,
         handleSelectUser,
-        handleLogout,
         handleAddFavorite
       }}
     >

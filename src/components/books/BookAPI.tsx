@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 const BookAPI = () => {
   const [keyword, setKeyword] = useState("");
   const [items, setItems] = useState<Item[]>([]);
-  const { currentUser, handleAddFavorite } = useAuth();
+  const { currentUser, handleAddFavorite, openLogoutModal } = useAuth();
   const [favoriteBookTitle, setfavoriteBookTitle] =
     useState<string>("サッカードリブル解剖図鑑");
 
@@ -144,7 +144,7 @@ const BookAPI = () => {
                 </span>
               </div>
               <button
-                // onClick={onLogout}
+                onClick={openLogoutModal}
                 className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold py-2 px-6 rounded-xl transition duration-300 transform hover:scale-105 shadow-md"
               >
                 ログアウト

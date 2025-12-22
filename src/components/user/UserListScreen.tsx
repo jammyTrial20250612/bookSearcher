@@ -1,18 +1,16 @@
 // ============================================================================
 // ユーザー一覧画面
 // ============================================================================
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import LogoutConfirmationModal from "../LogoutConfirmationModal";
-import { useLocation, useNavigate, Link } from 'react-router-dom';
-import UserDetailScreen from './UserDetailScreen';
+import { useNavigate, Link } from 'react-router-dom';
 
 // const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout: ()=>void }> = ({
 //   onSelectUser,
 //   onLogout
 // }) => {
 const UserListScreen: React.FC = ({}) => {
-  const { users, currentUser,selectedUserId, setSelectedUserId, handleSelectUser, handleLogout } = useAuth();
+  const { users, currentUser, selectedUserId, setSelectedUserId, handleSelectUser,openLogoutModal } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const navigateTo = useNavigate();
   
@@ -29,20 +27,6 @@ const UserListScreen: React.FC = ({}) => {
       state: { currentUserId: currentUser?.id, from: "ownButton" }
     })
   }
-
-  const handleLogoutClick = () => {
-    setShowLogoutModal(true);
-  };
-
-  const handleLogoutConfirm = () => {
-    setShowLogoutModal(false);
-    handleLogout();
-    navigateTo("/")
-  };
-
-  const handleLogoutCancel = () => {
-    setShowLogoutModal(false);
-  };
 
   const goToUser = (userId:number) => {
     setSelectedUserId(userId);
@@ -108,15 +92,9 @@ const UserListScreen: React.FC = ({}) => {
               >
                 ログアウト
               </button> */}
-                    <LogoutConfirmationModal
-                      isOpen={showLogoutModal}
-                      onConfirm={handleLogoutConfirm}
-                      onCancel={handleLogoutCancel}
-                      userName={currentUser?.name || 'ユーザー'}
-                    />
-                    
+                                 
                     <button className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold py-2 px-6 rounded-xl transition duration-300 transform hover:scale-105 shadow-md"
- onClick={handleLogoutClick}>
+ onClick={openLogoutModal}>
                       ログアウト
                     </button>
 

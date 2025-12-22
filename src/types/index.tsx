@@ -42,7 +42,6 @@ export interface AuthContextType {
   setSelectedUserId: (selectedUserId: number | null)=>void;
   checkLoggedIn: ()=>boolean;
   handleSelectUser: (userId: number)=>void;
-  handleLogout: ()=>void;
   handleAddFavorite: ()=>void;
 }
 
@@ -69,6 +68,7 @@ export type Book = {
   content: string,
   imageUrl: string,
   reviewInfo: ReviewInfo[];
+  likedusers: User[]
 }
 
 export interface BookContextType {
