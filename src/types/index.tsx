@@ -71,3 +71,16 @@ export type Book = {
 export interface BookContextType {
   books: Book[];
 }
+
+
+
+export type ItemObj = {
+  title: string,
+  itemPrice: number,
+  itemUrl: string,
+  mediumImageUrl: string,
+}
+
+export type Item = {
+  Item: ItemObj;
+}

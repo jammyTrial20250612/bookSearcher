@@ -31,7 +31,6 @@ const UserDetailScreen: React.FC = () => {
     return parsed;
   }, [location.search]);
 
-  console.log(userId);
   const user = users.find((u) => u.id === selectedUserId);
 
   const handleBack = () => {

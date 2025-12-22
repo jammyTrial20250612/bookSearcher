@@ -1,57 +1,31 @@
-// ============================================================================
-// ユーザー一覧画面
-// ============================================================================
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import type { Item, ItemObj } from '../../types';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import LogoutConfirmationModal from "../LogoutConfirmationModal";
-import { useLocation, useNavigate, Link } from 'react-router-dom';
-import UserDetailScreen from './UserDetailScreen';
 
-const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout: ()=>void }> = ({
-  onSelectUser,
-  onLogout
-}) => {
-  const { users, currentUser,selectedUserId, setSelectedUserId } = useAuth();
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigateTo = useNavigate();
-  
-  const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.role.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+const BookAPI = () => {
+  const [keyword, setKeyword] = useState('');
+  const [items, setItems] = useState<Item[]>([]);
+  const { currentUser } = useAuth();
 
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const fetchItems = async () => {
+    const appId = import.meta.env.VITE_APP_ID;
+    const encodedKeyword = encodeURIComponent(keyword);
 
-  const handleMoveToMyDetail = () => {
-    navigateTo(`/loggedIn/users/detail?id=${currentUser?.id}`,{
-      state: { currentUserId: currentUser?.id, from: "ownButton" }
-    })
-  }
-
-  const handleLogoutClick = () => {
-    setShowLogoutModal(true);
-  };
-
-  const handleLogoutConfirm = () => {
-    setShowLogoutModal(false);
-    onLogout();
-    navigateTo("/")
-  };
-
-  const handleLogoutCancel = () => {
-    setShowLogoutModal(false);
-  };
-
-  const goToUser = (userId:number) => {
-    setSelectedUserId(userId);
-    navigateTo(`/loggedIn/users/detail?id=${userId}`,{
-      state: { selectedUserId: userId, from: "userList" }
-    });
+    const url = `https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=${encodedKeyword}&applicationId=${appId}`;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setItems(data.Items);
+      console.log(url);
+      console.log(items);
+    } catch (error) {
+      console.error('エラーが発生しました:', error);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
       {/* ヘッダー */}
       <header className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -63,10 +37,10 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout
                 </svg>
               </div>
               <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: '"DM Serif Display", serif' }}>
-                メンバー
+                楽天ブックスAPI検索
               </h1>
             </div>
-                        <ul className="flex">
+            <ul className="flex">
               <li>
                 <Link to="/loggedIn/menu" className="flex hover:bg-red-400 bg-white px-4">
                   <svg
@@ -106,7 +80,7 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout
                 </Link>
               </li>
               <li>
-                <Link to="/loggedIn/api" className="flex hover:bg-green-400 bg-white px-4">
+                <Link to="/loggedIn/books" className="flex hover:bg-green-400 bg-white px-4">
                   <svg
                     className="size-6"
                     xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +100,7 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout
               </li>
             </ul>
             <div className="flex items-center space-x-4">
-              <div onClick={()=>handleMoveToMyDetail()} className="flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 rounded-xl">
+              <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 rounded-xl">
                 <img
                   src={currentUser?.avatar}
                   alt={currentUser?.name}
@@ -134,23 +108,12 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout
                 />
                 <span className="text-sm font-medium text-gray-700">{currentUser?.name}</span>
               </div>
-              {/* <button
-                onClick={onLogout}
+              <button
+                // onClick={onLogout}
                 className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold py-2 px-6 rounded-xl transition duration-300 transform hover:scale-105 shadow-md"
               >
                 ログアウト
-              </button> */}
-                    <LogoutConfirmationModal
-                      isOpen={showLogoutModal}
-                      onConfirm={handleLogoutConfirm}
-                      onCancel={handleLogoutCancel}
-                      userName={currentUser?.name || 'ユーザー'}
-                    />
-                    
-                    <button className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold py-2 px-6 rounded-xl transition duration-300 transform hover:scale-105 shadow-md"
- onClick={handleLogoutClick}>
-                      ログアウト
-                    </button>
+              </button>
 
             </div>
           </div>
@@ -162,13 +125,15 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout
         {/* 検索バー */}
         <div className="mb-8">
           <div className="relative max-w-xl">
+            <h1>楽天商品検索</h1>
             <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="名前、メール、役割で検索..."
-              className="w-full px-5 py-4 pl-12 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-sm transition"
+                type="text"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                placeholder="商品名を入力"
+                className='w-full px-5 py-4 pl-12 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent shadow-sm transition'
             />
+            <button onClick={fetchItems}>検索</button>
             <svg className="w-5 h-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -177,31 +142,33 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout
 
         {/* ユーザーカードグリッド */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredUsers.map((user, index) => (
+            {/* {items.map((itemObj, index) => { */}
+          { items.map((itemObj, index) => (
             <div
-              key={user.id}
+              key={index}
               // onClick={() => onSelectUser(user.id)}
-              onClick={()=>goToUser(index)}
+            //   onClick={()=>goToUser(index)}
               className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 border border-gray-100 group"
               style={{ animationDelay: `${index * 50}ms` }}
             >
+              <a href={itemObj.Item.itemUrl} target="_blank" rel="noopener noreferrer">
               {/* <UserDetailScreen userId={index} onBack={()=>{}}/> */}
               <div className="flex items-start space-x-4 mb-4">
                 <img
-                  src={user.avatar}
-                  alt={user.name}
+                  src={itemObj.Item.mediumImageUrl}
+                  alt={itemObj.Item.title}
                   className="w-16 h-16 rounded-2xl border-2 border-purple-200 group-hover:border-purple-400 transition-colors"
                 />
                 <div className="flex-1 min-w-0">
                   <h3 className="text-lg font-bold text-gray-900 truncate group-hover:text-purple-600 transition-colors">
-                    {user.name}
+                    {itemObj.Item.title}
                   </h3>
-                  <p className="text-sm text-purple-600 font-medium">{user.role}</p>
-                  <p className="text-xs text-gray-500 truncate mt-1">{user.email}</p>
+                  <p className="text-sm text-purple-600 font-medium">{itemObj.Item.title}</p>
+                  <p className="text-xs text-gray-500 truncate mt-1">{itemObj.Item.title}</p>
                 </div>
               </div>
 
-              <p className="text-sm text-gray-600 mb-4 line-clamp-2">{user.bio}</p>
+              <p className="text-sm text-gray-600 mb-4 line-clamp-2">{itemObj.Item.title}</p>
 
               <div className="flex items-center justify-between text-xs text-gray-500">
                 <div className="flex items-center space-x-1">
@@ -209,45 +176,29 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span>{user.location}</span>
+                  <span>{itemObj.Item.title}</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span>{user.joinedDate}</span>
+                  <span>{itemObj.Item.title}</span>
+                  {/* <span>{book.reviewInfo.map((r)=>(<p>{r.review}:{r.userName}さん</p>))}</span> */}
                 </div>
               </div>
-
-              {user.skills.length > 0 && (
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {user.skills.slice(0, 3).map((skill, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 bg-gradient-to-r from-purple-50 to-pink-50 text-purple-700 text-xs font-medium rounded-full"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                  {user.skills.length > 3 && (
-                    <span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
-                      +{user.skills.length - 3}
-                    </span>
-                  )}
-                </div>
-              )}
+              </a>
             </div>
           ))}
         </div>
 
-        {filteredUsers.length === 0 && (
+        {items.length === 0 && (
           <div className="text-center py-16">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
               <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
-            <p className="text-gray-500 text-lg">該当するユーザーが見つかりません</p>
+            <p className="text-gray-500 text-lg">該当する書籍が見つかりません</p>
           </div>
         )}
       </main>
@@ -263,6 +214,23 @@ const UserListScreen: React.FC<{ onSelectUser: (userId: number) => void;onLogout
       `}</style>
     </div>
   );
+    //   <ul>
+    //     {items.map((itemObj, index) => {
+    //       const item:ItemObj = itemObj.Item;
+    //       {console.log(itemObj)}
+    //       return (
+    //         <li key={index}>
+    //           <a href={item.itemUrl} target="_blank" rel="noopener noreferrer">
+    //             <img src={item.mediumImageUrl} alt={item.title} />
+    //             <p>{item.title}</p>
+    //             <p>{item.itemPrice}円</p>
+    //           </a>
+    //         </li>
+    //       );
+    //     })}
+    //   </ul>
+
+
 };
 
-export default UserListScreen;
+export default BookAPI;

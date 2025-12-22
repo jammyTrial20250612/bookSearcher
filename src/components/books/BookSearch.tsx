@@ -77,7 +77,7 @@ const BookSearch:React.FC<BookSearchProps>=({onLogout})=>{
                 </Link>
               </li>
               <li>
-                <Link to="/loggedIn/books" className="flex hover:bg-green-400 bg-white px-4">
+                <Link to="/loggedIn/api" className="flex hover:bg-green-400 bg-white px-4">
                   <svg
                     className="size-6"
                     xmlns="http://www.w3.org/2000/svg"

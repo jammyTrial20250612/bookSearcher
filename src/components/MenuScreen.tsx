@@ -12,7 +12,7 @@ const MenuScreen: React.FC = () => {
     setPage(title);
     navigate(page);
   };
-  const pages = ["/loggedIn/menu", "/loggedIn/users", "/loggedIn/books"];
+  const pages = ["/loggedIn/menu", "/loggedIn/users", "/loggedIn/books", "/loggedIn/api"];
   const [pageTitle, setpageTitle] = useState(pages[0]);
 
   const menuItems = [
@@ -61,6 +61,27 @@ const MenuScreen: React.FC = () => {
     {
       id: pages[2],
       title: "書籍検索",
+      description: "書籍を検索して探す",
+      icon: (
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      ),
+      color: "from-green-400 to-emerald-600",
+    },
+    {
+      id: pages[3],
+      title: "楽天ブックス書籍検索API",
       description: "書籍を検索して探す",
       icon: (
         <svg
@@ -150,7 +171,7 @@ const MenuScreen: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/loggedIn/books" className="flex hover:bg-green-400 bg-white px-4">
+                <Link to="/loggedIn/api" className="flex hover:bg-green-400 bg-white px-4">
                   <svg
                     className="size-6"
                     xmlns="http://www.w3.org/2000/svg"

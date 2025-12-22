@@ -14,6 +14,7 @@ import ProtectedLayout from "./ProtectedLayout.tsx";
 import PublicOnlyRoute from "./PublicOnlyRoute.tsx";
 import PublicOnlyLayout from "./PublicOnlyLayout.tsx";
 import BookSearch from "./components/books/BookSearch.tsx";
+import BookAPI from "./components/books/BookAPI.tsx";
 
 setupMock();
 
@@ -58,6 +59,7 @@ const Pages=()=>{
                 {/* {selectedUserId!==null ?<Route path={`/loggedIn/users/detail`} element={<UserDetailScreen userId={selectedUserId}/>}/>:<></>} */}
                 {/* <Route path="/user/edit" element={<UserEditScreen />}/> */}
                 {selectedUserId!==null ?<Route path={`/loggedIn/users/detail`} element={<UserDetailScreen />}/>:<></>}
+                <Route path="/loggedIn/api" element={<BookAPI />}/>
               </Route>
             </Routes>
     </>
