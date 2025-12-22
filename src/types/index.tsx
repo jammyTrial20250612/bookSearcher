@@ -42,6 +42,7 @@ export interface AuthContextType {
   setSelectedUserId: (selectedUserId: number | null)=>void;
   checkLoggedIn: ()=>boolean;
   handleSelectUser: (userId: number)=>void;
+  handleMoveToMyDetail: ()=>void;
   handleAddFavorite: ()=>void;
 }
 

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MenuScreen: React.FC = () => {
-  const { currentUser, openLogoutModal, checkLoggedIn } = useAuth();
+  const { currentUser, openLogoutModal, handleMoveToMyDetail } = useAuth();
   const [page, setPage] = useState<string>("menu");
   const navigate = useNavigate();
 
@@ -90,7 +90,7 @@ const MenuScreen: React.FC = () => {
               </li>
             </ul>
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 rounded-xl">
+              <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 rounded-xl" onClick={()=>handleMoveToMyDetail()}>
                 <img
                   src={currentUser?.avatar}
                   alt={currentUser?.name}

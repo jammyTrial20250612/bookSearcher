@@ -6,7 +6,7 @@ import { useAuth } from "../../context/AuthContext";
 const BookAPI = () => {
   const [keyword, setKeyword] = useState("");
   const [items, setItems] = useState<Item[]>([]);
-  const { currentUser, handleAddFavorite, openLogoutModal } = useAuth();
+  const { currentUser, handleAddFavorite, openLogoutModal, handleMoveToMyDetail } = useAuth();
   const [favoriteBookTitle, setfavoriteBookTitle] =
     useState<string>("サッカードリブル解剖図鑑");
 
@@ -133,7 +133,7 @@ const BookAPI = () => {
               </li>
             </ul>
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 rounded-xl">
+              <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 rounded-xl" onClick={()=>handleMoveToMyDetail()}>
                 <img
                   src={currentUser?.avatar}
                   alt={currentUser?.name}

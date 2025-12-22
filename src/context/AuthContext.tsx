@@ -11,6 +11,7 @@ import type User from "../types";
 import type { AuthContextType } from "../types";
 import { loadUsers } from "../mocks/storage";
 import LogoutConfirmationModal from "../components/LogoutConfirmationModal";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => {
@@ -103,11 +104,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     const sessionInfo = sessionStorage.getItem("auth");
     if(sessionInfo ==="true"){
       console.log("auth :",sessionInfo);
-      console.log("isAuthenticated :",isAuthenticated)
       return true;
     }else{
       console.log("not session");
-      console.log("isAuthenticated :",isAuthenticated);
       return false;
     }
   }
@@ -117,12 +116,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     localStorage.setItem("currentScreen",'userDetail');
   };
 
-  const handleLogout = () => {
-    logout();
-    localStorage.setItem("currentScreen",'login');
-    localStorage.setItem('isLoggedIn', 'false');
-    sessionStorage.setItem('auth', 'false');
-  };
+  const navigateTo = useNavigate();
+  const handleMoveToMyDetail = () => {
+      navigateTo(`/loggedIn/users/detail?id=${currentUser?.id}`,{
+      state: { currentUserId: currentUser?.id, from: "ownButton" }
+    })
+    if(currentUser){
+    setSelectedUserId(currentUser.id);
+    }
+  }
 
   const handleAddFavorite = () => {
     console.log("favorite");
@@ -143,6 +145,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setSelectedUserId,
         checkLoggedIn,
         handleSelectUser,
+        handleMoveToMyDetail,
         handleAddFavorite
       }}
     >

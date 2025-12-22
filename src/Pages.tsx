@@ -29,7 +29,6 @@ const Pages=()=>{
   }, []);
 
   const { selectedUserId } = useAuth();
-  const [ userId, setUserId ]=useState<number>(0);
   if(selectedUserId!==null){
     selectedUserId
   }
@@ -56,9 +55,6 @@ const Pages=()=>{
                   reviewInfo={[{ id: 1, userId: 4, userName: "Mike", review: "森の描写が美しかった" }]} onLogout={() =>{}}
                 />}/>
                 <Route path="/loggedIn/users" element={<UserListScreen />}/>
-                {/* <Route path={`/users?id=${selectedUserId}`} element={<UserListScreen onSelectUser={()=>selectedUserId} onLogout={()=>{}}/>}/> */}
-                {/* {selectedUserId!==null ?<Route path={`/loggedIn/users/detail`} element={<UserDetailScreen userId={selectedUserId}/>}/>:<></>} */}
-                {/* <Route path="/user/edit" element={<UserEditScreen />}/> */}
                 {selectedUserId!==null ?<Route path={`/loggedIn/users/detail`} element={<UserDetailScreen />}/>:<></>}
                 <Route path="/loggedIn/api" element={<BookAPI />}/>
               </Route>
