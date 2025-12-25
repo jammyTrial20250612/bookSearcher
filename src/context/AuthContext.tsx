@@ -133,11 +133,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const handleAddFavorite = (
     title: string,
-    itemUrl: string,
-    mediumImageUrl: string,
     author: string,
-    isbn: string,
     itemCaption: string,
+    mediumImageUrl: string,
+    itemUrl: string,
+    isbn: string,
     publisherName: string) => {
 
       if(currentUser != null){

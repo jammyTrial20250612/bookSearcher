@@ -52,8 +52,8 @@ const Pages=()=>{
               >
                 <Route path="/loggedIn/menu" element={<MenuScreen />}/>
                 <Route path="/loggedIn/books" element={<BookSearch
-                  reviewInfo={[{ id: 1, userId: 4, userName: "Mike", review: "森の描写が美しかった" }]} onLogout={() =>{}}
-                />}/>
+                  reviewInfo={[{ id: 1, userId: 4, userName: "Mike", review: "森の描写が美しかった" }]}
+                  />}/>
                 <Route path="/loggedIn/users" element={<UserListScreen />}/>
                 {selectedUserId!==null ?<Route path={`/loggedIn/users/detail`} element={<UserDetailScreen />}/>:<></>}
                 <Route path="/loggedIn/api" element={<BookAPI />}/>

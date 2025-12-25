@@ -7,13 +7,12 @@ import { useBook } from "../../context/BookContext";
 import type { ReviewInfo } from "../../types";
 
 type BookSearchProps = {
-    reviewInfo : ReviewInfo[],
-    onLogout: () => void
+    reviewInfo : ReviewInfo[]
 }
-const BookSearch:React.FC<BookSearchProps>=({onLogout})=>{
-    const {currentUser} = useAuth();
+const BookSearch:React.FC<BookSearchProps>=()=>{
+    const {currentUser, openLogoutModal, handleMoveToMyDetail} = useAuth();
     const {localBooks} = useBook();
-    const [searchQuery, setSearchQuery] = useState('React');
+    const [searchQuery, setSearchQuery] = useState("");
 
     const filteredBooks = localBooks.filter(b =>
       b.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -71,16 +70,22 @@ const BookSearch:React.FC<BookSearchProps>=({onLogout})=>{
               </li>
             </ul>
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 rounded-xl">
+              <div
+                className="flex items-center space-x-3 bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 rounded-xl"
+                onClick={() => handleMoveToMyDetail()}
+              >
                 <img
                   src={currentUser?.avatar}
                   alt={currentUser?.name}
                   className="w-8 h-8 rounded-full border-2 border-purple-300"
                 />
-                <span className="text-sm font-medium text-gray-700">{currentUser?.name}</span>
+                <span className="text-sm font-medium text-gray-700">
+                  {currentUser?.name}
+                </span>
               </div>
+
               <button
-                onClick={onLogout}
+                onClick={openLogoutModal}
                 className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-semibold py-2 px-6 rounded-xl transition duration-300 transform hover:scale-105 shadow-md"
               >
                 ログアウト
