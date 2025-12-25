@@ -9,9 +9,11 @@ import {
 } from "react";
 import type User from "../types";
 import type { AuthContextType } from "../types";
+import type { Book } from "../types";
 import { loadUsers } from "../mocks/storage";
 import LogoutConfirmationModal from "../components/LogoutConfirmationModal";
 import { useNavigate } from "react-router-dom";
+import { useBook } from "./BookContext";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => {
@@ -61,6 +63,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       joinedDate: new Date().toISOString().split("T")[0],
       location: "未設定",
       skills: [],
+      books: [],
       password: "default000",
     };
 
@@ -126,9 +129,36 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     }
   }
 
-  const handleAddFavorite = () => {
-    console.log("favorite");
+  const { localBooks, favoriteBookTitle, setLocalBooks, setfavoriteBookTitle } = useBook();
+
+  const handleAddFavorite = (
+    title: string,
+    itemUrl: string,
+    mediumImageUrl: string,
+    author: string,
+    isbn: string,
+    itemCaption: string,
+    publisherName: string) => {
+
+      if(currentUser != null){
+        const newBook: Book = {
+          id: localBooks.length + 1,
+          title: title,
+          itemUrl: itemUrl,
+          imageUrl: mediumImageUrl,
+          author: author,
+          isbn: isbn,
+          content: itemCaption,
+          publisherName: publisherName
+        }
+        setLocalBooks([...localBooks, newBook]);
+        console.log("Added favorite book:", newBook);
+        localStorage.setItem("localBooks", JSON.stringify([...localBooks, newBook]));
+        setfavoriteBookTitle([...favoriteBookTitle, title]);
+      }  
   }
+
+  const handleRemoveFavorite = () => {};
 
   return (
     <AuthContext.Provider
@@ -146,7 +176,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         checkLoggedIn,
         handleSelectUser,
         handleMoveToMyDetail,
-        handleAddFavorite
+        handleAddFavorite,
+        handleRemoveFavorite,
       }}
     >
       {children}

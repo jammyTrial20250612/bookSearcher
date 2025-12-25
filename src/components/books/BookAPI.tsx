@@ -2,13 +2,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import type { Item, ItemObj } from "../../types";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useBook } from "../../context/BookContext";
 
 const BookAPI = () => {
   const [keyword, setKeyword] = useState("");
   const [items, setItems] = useState<Item[]>([]);
-  const { currentUser, handleAddFavorite, openLogoutModal, handleMoveToMyDetail } = useAuth();
-  const [favoriteBookTitle, setfavoriteBookTitle] =
-    useState<string>("サッカードリブル解剖図鑑");
+  const { currentUser, handleAddFavorite, handleRemoveFavorite, openLogoutModal, handleMoveToMyDetail } = useAuth();
+  const { favoriteBookTitle } = useBook();
+  // const [favoriteBookTitle, setfavoriteBookTitle] =
+  //   useState<string>("サッカードリブル解剖図鑑");
 
   const fetchItems = async () => {
     const appId = import.meta.env.VITE_APP_ID;
@@ -228,8 +230,8 @@ const BookAPI = () => {
 
               <div className="flex items-center justify-between text-xs text-gray-500">
                 <div className="flex items-center space-x-1">
-                  {itemObj.Item.title === favoriteBookTitle ? (
-                    <button className="flex" onClick={()=>handleAddFavorite()}>
+                  {favoriteBookTitle.includes(itemObj.Item.title) ? (
+                    <button className="flex" onClick={()=>handleRemoveFavorite()}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -248,7 +250,7 @@ const BookAPI = () => {
                     </button>
                   ) : (
                     <>
-                    <button className="flex" onClick={()=>handleAddFavorite()}>
+                    <button className="flex" onClick={()=>handleAddFavorite(itemObj.Item.title, itemObj.Item.author, itemObj.Item.itemCaption, itemObj.Item.mediumImageUrl, itemObj.Item.itemUrl, itemObj.Item.isbn, itemObj.Item.publisherName)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"

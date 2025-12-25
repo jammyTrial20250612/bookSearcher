@@ -22,7 +22,7 @@ const UserDetailScreen: React.FC = () => {
   } 
   if (state?.from === "userList") {
     const { selectedUserId } = state;
-    setSelectedUserId(selectedUserId+1);
+    setSelectedUserId(selectedUserId);
   }
 
   const userId = useMemo(() => {

@@ -20,11 +20,15 @@ export const useBook = () => {
 export const BookProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [books, setBooks] = useState<Book[]>(loadBooks());
+  const [apiBooks, setApiBooks] = useState<Book[]>(loadBooks());
+  const [localBooks, setLocalBooks] = useState<Book[]>([]);
+  const [favoriteBookTitle, setfavoriteBookTitle] =
+    useState<string[]>([]);
+  
   return (
     <BookContext.Provider
       value={{
-        books
+        apiBooks: apiBooks, localBooks: localBooks, setLocalBooks: setLocalBooks, favoriteBookTitle: favoriteBookTitle, setfavoriteBookTitle: setfavoriteBookTitle
       }}
     >
       {children}

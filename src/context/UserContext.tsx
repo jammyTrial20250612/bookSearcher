@@ -91,6 +91,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           joinedDate: new Date().toISOString().split('T')[0],
           location: loginUser.currentUser?.role,
           skills: loginUser.currentUser?.skills,
+          books: loginUser.currentUser?.books,
           password: "secret, no password"
           });
         };

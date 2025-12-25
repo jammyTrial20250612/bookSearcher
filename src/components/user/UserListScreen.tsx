@@ -187,7 +187,7 @@ const UserListScreen: React.FC = ({}) => {
           {filteredUsers.map((user, index) => (
             <div
               key={user.id}
-              onClick={() => goToUser(index)}
+              onClick={() => goToUser(user.id)}
               className="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 border border-gray-100 group"
               style={{ animationDelay: `${index * 50}ms` }}
             >

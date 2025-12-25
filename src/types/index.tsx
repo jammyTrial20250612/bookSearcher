@@ -14,6 +14,7 @@ export default interface User {
   joinedDate: string;
   location: string;
   skills: string[];
+  books: string[];
   password: string;
 }
 
@@ -43,7 +44,8 @@ export interface AuthContextType {
   checkLoggedIn: ()=>boolean;
   handleSelectUser: (userId: number)=>void;
   handleMoveToMyDetail: ()=>void;
-  handleAddFavorite: ()=>void;
+  handleAddFavorite: (title: string,author: string,content: string,imageUrl: string,itemUrl: string,isbn: string,publisherName: string)=>void;
+  handleRemoveFavorite: ()=>void;
 }
 
 export type UserScreen = 'menu' | 'login' | 'signup' | 'userList' | 'userDetail' | 'bookList' | 'bookSearch';
@@ -68,12 +70,18 @@ export type Book = {
   author: string,
   content: string,
   imageUrl: string,
-  reviewInfo: ReviewInfo[];
-  likedusers: User[]
+  itemUrl?: string,
+  isbn?: string,
+  publisherName?: string,
+  reviewInfo?: ReviewInfo[];
 }
 
 export interface BookContextType {
-  books: Book[];
+  apiBooks: Book[];
+  localBooks: Book[];
+  favoriteBookTitle: string[];
+  setLocalBooks: (books: Book[])=>void;
+  setfavoriteBookTitle: (title: string[])=>void;
 }
 
 export type ItemObj = {
@@ -92,3 +100,11 @@ export type ItemObj = {
 export type Item = {
   Item: ItemObj;
 }
+
+type UserFavorite = {
+  id: number;
+  userId: string;
+  userName: string;
+  book: Book;
+  addedAt: Date;
+};
