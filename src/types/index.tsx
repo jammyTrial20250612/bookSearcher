@@ -14,7 +14,7 @@ export default interface User {
   joinedDate: string;
   location: string;
   skills: string[];
-  books: string[];
+  books: Book[];
   password: string;
 }
 

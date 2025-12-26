@@ -201,7 +201,7 @@ const UserDetailScreen: React.FC = () => {
               <p className="text-gray-700 leading-relaxed">{user.bio}</p>
             </div>
 
-            {/* スキル */}
+            {/* 楽天ブックス */}
             <div className="bg-white rounded-2xl shadow-md p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg mr-3 flex items-center justify-center">
@@ -219,22 +219,19 @@ const UserDetailScreen: React.FC = () => {
                     />
                   </svg>
                 </div>
-                スキル
+                お気に入りの本
               </h2>
-              {user.skills.length > 0 ? (
+              {user.books.length > 0 ? (
                 <div className="flex flex-wrap gap-3">
-                  {user.skills.map((skill, index) => (
-                    <span
-                      key={index}
-                      className="px-4 py-2 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 font-medium rounded-xl border border-purple-200 hover:shadow-md transition-shadow"
-                    >
-                      {skill}
+                  {user.books.map((book, index) => (
+                    <span key={index} className="block">
+                    <img key={index} src={book.imageUrl} alt={book.title} className="w-24 h-32 object-cover rounded-lg shadow-md"/>
                     </span>
                   ))}
                 </div>
               ) : (
                 <p className="text-gray-500 italic">
-                  スキル情報が登録されていません
+                  楽天ブックス情報が登録されていません
                 </p>
               )}
             </div>

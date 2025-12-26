@@ -13,6 +13,7 @@ export let initialMockUsers: User[] = [
     joinedDate: '2023-01-15',
     location: '東京',
     skills: ['React', 'TypeScript', 'Node.js', 'Python'],
+    books: [],
     password: "demo@example.com111",
   },
   {
@@ -25,6 +26,7 @@ export let initialMockUsers: User[] = [
     joinedDate: '2023-03-20',
     location: '大阪',
     skills: ['Figma', 'Sketch', 'Adobe XD', 'CSS'],
+    books: [],
     password: "tanaka@example.com222",
   },
   {
@@ -37,6 +39,7 @@ export let initialMockUsers: User[] = [
     joinedDate: '2022-11-10',
     location: '福岡',
     skills: ['Go', 'PostgreSQL', 'Docker', 'Kubernetes'],
+    books: [],
     password: "sato@example.com333",
   },
   {
@@ -49,6 +52,7 @@ export let initialMockUsers: User[] = [
     joinedDate: '2023-05-01',
     location: '名古屋',
     skills: ['Scrum', 'Agile', 'JIRA', 'Confluence'],
+    books: [],
     password: "suzuki@example.com444",
   },
   {
@@ -61,6 +65,7 @@ export let initialMockUsers: User[] = [
     joinedDate: '2023-02-14',
     location: '横浜',
     skills: ['Python', 'TensorFlow', 'PyTorch', 'SQL'],
+    books: [],
     password: "watanabe@exmaple.com555",
   },
   {
@@ -73,6 +78,7 @@ export let initialMockUsers: User[] = [
     joinedDate: '2023-07-22',
     location: '札幌',
     skills: ['Vue.js', 'React', 'Three.js', 'GSAP'],
+    books: [],
     password: "kobayashi@example.com666",
   }
 ];

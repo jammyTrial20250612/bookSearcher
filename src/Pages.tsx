@@ -15,6 +15,7 @@ import PublicOnlyLayout from "./PublicOnlyLayout.tsx";
 import BookSearch from "./components/books/BookSearch.tsx";
 import BookAPI from "./components/books/BookAPI.tsx";
 import UserListScreen from "./components/user/UserListScreen.tsx";
+import BookDetailScreen from "./components/books/BookDetailScreen.tsx";
 
 setupMock();
 
@@ -54,6 +55,7 @@ const Pages=()=>{
                 <Route path="/loggedIn/books" element={<BookSearch
                   reviewInfo={[{ id: 1, userId: 4, userName: "Mike", review: "森の描写が美しかった" }]}
                   />}/>
+                <Route path="/loggedIn/books/detail" element={<BookDetailScreen />}/>
                 <Route path="/loggedIn/users" element={<UserListScreen />}/>
                 {selectedUserId!==null ?<Route path={`/loggedIn/users/detail`} element={<UserDetailScreen />}/>:<></>}
                 <Route path="/loggedIn/api" element={<BookAPI />}/>

@@ -155,6 +155,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         console.log("Added favorite book:", newBook);
         localStorage.setItem("localBooks", JSON.stringify([...localBooks, newBook]));
         setfavoriteBookTitle([...favoriteBookTitle, title]);
+        users.filter((u) => u.id === currentUser.id).forEach((u) => {
+          u.books.push(newBook);
+        })
+        localStorage.setItem("mockUsers", JSON.stringify([...users]));
       }  
   }
 
