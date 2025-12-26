@@ -221,7 +221,7 @@ const UserDetailScreen: React.FC = () => {
                 </div>
                 お気に入りの本
               </h2>
-              {user.books.length > 0 ? (
+              {user.books !== undefined? (
                 <div className="flex flex-wrap gap-3">
                   {user.books.map((book, index) => (
                     <span key={index} className="block">
