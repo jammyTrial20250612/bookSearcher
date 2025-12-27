@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       location: "未設定",
       skills: [],
       books: [],
-      password: "default000",
+      password: password,
     };
 
     setUsers([...users, newUser]);
@@ -169,7 +169,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       value={{
         isAuthenticated,
         currentUser,
+        setCurrentUser,
         users,
+        setUsers,
         login,
         signup,
         logout,

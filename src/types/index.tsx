@@ -19,18 +19,18 @@ export default interface User {
 }
 
 export interface UserContextType {
-  user: User | null;
-  updateUser: (user: User) => void;
-  updateUserField: (field: keyof User, value: string) => void;
+  updateUser: (id: number, bio: string, role: string, location: string, skills: string[]) => void,
 }
 
 export interface AuthContextType {
   isAuthenticated: boolean;
   currentUser: User | null;
+  setCurrentUser: (user: User | null)=>void;
   users: User[];
   login: (email: string, password: string) => Promise<boolean>;
   signup: (email: string, password: string, name: string) => Promise<boolean>;
   logout: () => void;
+  setUsers: (users: User[]) => void;
   // navigateTo: (screen: UserScreen, userId?: string) => void;
   showLogoutModal: boolean;
   openLogoutModal: () => void;

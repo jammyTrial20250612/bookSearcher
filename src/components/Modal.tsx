@@ -14,7 +14,7 @@ function Modal({ onClose }: Modalprops) {
         className="bg-white p-6 rounded shadow-lg w-screen-full"
         onClick={(e) => e.stopPropagation()} // モーダル内クリックで閉じないように
       >
-        <h2 className="text-xl font-bold mb-4">モーダルのタイトル</h2>
+        <h2 className="text-xl font-bold mb-4"></h2>
         <p className="mb-4">
             <UserEditScreen />
         </p>

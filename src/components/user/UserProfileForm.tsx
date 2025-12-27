@@ -1,13 +1,10 @@
-import { useUser } from "../../context/UserContext"
 import { useState } from "react";
 const UserProfileForm: React.FC = () => {
-  const { user, updateUserField } = useUser();
   const [name, setName] = useState(user?.name || '');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // 子からContextを更新
-    updateUserField('name', name);
   };
 
   return (
