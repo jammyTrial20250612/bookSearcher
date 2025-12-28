@@ -1,26 +1,29 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useBook } from "../../context/BookContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "../Modal";
+import type { Book } from "../../types";
 const BookDetailScreen:React.FC=()=>{
   const { localBooks } = useBook();
   const [isOpen, setIsOpen] = useState(false);
-  const { users, currentUser } = useAuth();
   const navigateTo = useNavigate();
   const location = useLocation();
-
-  const user = users.find((u) => u.id === currentUser?.id)!;
+  const [book, setBook] = useState<Book>();
 
   const handleBack = () => {
     navigateTo(-1);
   };
 
-    const state = location.state as
-    | { bookId: number; from: "bookList" }
-    const { bookId } = state;
+    const queryParams = new URLSearchParams(location.search);
+    const bookIdParam = queryParams.get("id");
+    const bookId = bookIdParam ? parseInt(bookIdParam, 10) : null;
 
-    const book = localBooks.find((b) => b.id === bookId);
+    useEffect(() => {
+      if (bookId !== null) {
+        setBook(localBooks.find((b) => b.id === bookId));
+      }
+    }, [bookId, localBooks]);
 
     return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">

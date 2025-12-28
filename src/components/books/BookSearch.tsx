@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import LogoutConfirmationModal from "../LogoutConfirmationModal";
 import { useNavigate, Link } from "react-router-dom";
 import React from "react";
 import { useBook } from "../../context/BookContext";
 import type { ReviewInfo } from "../../types";
+import type User from "../../types";
 
 type BookSearchProps = {
     reviewInfo : ReviewInfo[]
@@ -16,10 +17,10 @@ const BookSearch:React.FC<BookSearchProps>=()=>{
     const navigateTo = useNavigate();
 
     useEffect(() => {
-        const localData = localStorage.getItem("localBooks");
+        const localData = localStorage.getItem("mockUsers");
         if (localData !==  null) {
           const localBooksJsonData = JSON.parse(localData);
-          setLocalBooks(localBooksJsonData);
+          setLocalBooks(localBooksJsonData.filter((u:User) => u.id === currentUser?.id)[0]?.books || []);
         }
       }, []);
 

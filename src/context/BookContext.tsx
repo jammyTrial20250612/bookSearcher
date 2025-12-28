@@ -24,6 +24,7 @@ export const BookProvider: React.FC<{ children: ReactNode }> = ({
   const [localBooks, setLocalBooks] = useState<Book[]>([]);
   const [favoriteBookTitle, setfavoriteBookTitle] =
     useState<string[]>([]);
+  const [serverBooks, setServerBooks] = useState<Book[]>([]);
   
   return (
     <BookContext.Provider

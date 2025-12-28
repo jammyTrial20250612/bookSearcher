@@ -30,6 +30,7 @@ const UserEditScreen: React.FC = () => {
       location: location,
       skills: currentUser!.skills
     });
+    alert("プロフィールが更新されました！");
   };
 
 //   const [changeUserData, setchangeUserData]=useState<User>({

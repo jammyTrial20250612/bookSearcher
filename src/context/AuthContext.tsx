@@ -3,6 +3,7 @@
 // ============================================================================
 import {
   useState,
+  useEffect,
   useContext,
   createContext,
   type ReactNode,
@@ -14,6 +15,7 @@ import { loadUsers } from "../mocks/storage";
 import LogoutConfirmationModal from "../components/LogoutConfirmationModal";
 import { useNavigate } from "react-router-dom";
 import { useBook } from "./BookContext";
+import type { UserFavorite } from "../types";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => {
@@ -37,6 +39,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     const userPassword = users.find((p) => p.password === password);
     if (user && userPassword) {
       setCurrentUser(user);
+      localStorage.setItem("loginUser", JSON.stringify(user));
       setIsAuthenticated(true);
       return true;
     }
@@ -69,6 +72,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
     setUsers([...users, newUser]);
     setCurrentUser(newUser);
+    localStorage.setItem("loginUser", JSON.stringify(newUser));
     setIsAuthenticated(true);
     return true;
   };
@@ -90,6 +94,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     setIsAuthenticated(false);
     setShowLogoutModal(false);
     setSelectedUserId(null);
+    localStorage.setItem('auth', 'false');
+    localStorage.removeItem('loginUser');
   };
 
   // // 画面遷移関数
@@ -104,7 +110,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   const checkLoggedIn=()=>{
-    const sessionInfo = sessionStorage.getItem("auth");
+    const sessionInfo = localStorage.getItem("auth");
     if(sessionInfo ==="true"){
       console.log("auth :",sessionInfo);
       return true;
@@ -159,10 +165,31 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
           u.books.push(newBook);
         })
         localStorage.setItem("mockUsers", JSON.stringify([...users]));
+
+        const favoriteData:UserFavorite = {
+          id: localBooks.length + 1,
+          userId: currentUser.id,
+          bookId: newBook.id,
+          addedAt: new Date()
+        }
+        localStorage.setItem("favoriteData", JSON.stringify([favoriteData]));
       }  
   }
 
+  const handleReadFavorite = () => {
+    const storedFavorites = localStorage.getItem("favoriteData");
+    if (storedFavorites) {
+      const favoriteList: UserFavorite[] = JSON.parse(storedFavorites);
+      return favoriteList;
+    }
+  };
+
   const handleRemoveFavorite = () => {};
+
+  useEffect(() => {
+    const storedLoginUser = localStorage.getItem('loginUser');
+    setCurrentUser(storedLoginUser ? JSON.parse(storedLoginUser) : null);
+  }, []);
 
   return (
     <AuthContext.Provider
@@ -183,6 +210,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         handleSelectUser,
         handleMoveToMyDetail,
         handleAddFavorite,
+        handleReadFavorite,
         handleRemoveFavorite,
       }}
     >

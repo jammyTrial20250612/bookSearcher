@@ -1,17 +1,15 @@
 // ============================================================================
 // ユーザー詳細画面
 // ============================================================================
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Modal from "../Modal";
 import { useNavigate, useLocation } from "react-router-dom";
-import type User from "../../types";
 
 const UserDetailScreen: React.FC = () => {
   const { users, currentUser, selectedUserId, setSelectedUserId } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const navigateTo = useNavigate();
-  const [useIdState, setuserIdState]=useState<number>(0);
   const location = useLocation();
   const state = location.state as
     | { currentUserId: number; from: "ownButton" }
@@ -36,6 +34,12 @@ const UserDetailScreen: React.FC = () => {
   const handleBack = () => {
     navigateTo(-1);
   };
+
+  const goToBookFromUserList = (bookId: number, userId: number) => {
+      navigateTo(`/loggedIn/books/detail?id=${bookId}&user=${userId}`, {
+      state: { bookId: bookId, userId: userId, from: "userList" },
+    });
+  }
 
   if (!user) {
     return (
@@ -224,7 +228,7 @@ const UserDetailScreen: React.FC = () => {
               {user.books !== undefined? (
                 <div className="flex flex-wrap gap-3">
                   {user.books.map((book, index) => (
-                    <span key={index} className="block">
+                    <span key={index} className="block" onClick={()=>goToBookFromUserList(book.id,user.id)}>
                     <img key={index} src={book.imageUrl} alt={book.title} className="w-24 h-32 object-cover rounded-lg shadow-md"/>
                     </span>
                   ))}

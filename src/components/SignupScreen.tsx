@@ -39,7 +39,7 @@ const SignupScreen: React.FC = () => {
 
     if (success) {
       // onSignupSuccess();
-      navigateTo("/loggedIn/users");
+      navigateTo("/loggedIn/menu");
     } else {
       setError('このメールアドレスは既に使用されています');
     }
@@ -58,6 +58,7 @@ const SignupScreen: React.FC = () => {
       joinedDate: new Date().toISOString().split('T')[0],
       location: '未設定',
       skills: [],
+      books: [],
       password: password,
     };
 

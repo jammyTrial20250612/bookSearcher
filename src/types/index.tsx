@@ -45,6 +45,7 @@ export interface AuthContextType {
   handleSelectUser: (userId: number)=>void;
   handleMoveToMyDetail: ()=>void;
   handleAddFavorite: (title: string,author: string,content: string,imageUrl: string,itemUrl: string,isbn: string,publisherName: string)=>void;
+  handleReadFavorite: ()=>UserFavorite[] | undefined;
   handleRemoveFavorite: ()=>void;
 }
 
@@ -101,10 +102,9 @@ export type Item = {
   Item: ItemObj;
 }
 
-type UserFavorite = {
+export type UserFavorite = {
   id: number;
-  userId: string;
-  userName: string;
-  book: Book;
+  userId: number;
+  bookId: number;
   addedAt: Date;
 };

@@ -1,10 +1,10 @@
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MenuScreen: React.FC = () => {
-  const { currentUser, openLogoutModal, handleMoveToMyDetail } = useAuth();
+  const { isAuthenticated, currentUser,setCurrentUser, openLogoutModal, handleMoveToMyDetail } = useAuth();
   const [page, setPage] = useState<string>("menu");
   const navigate = useNavigate();
 
@@ -46,6 +46,22 @@ const MenuScreen: React.FC = () => {
       color: "from-yellow-400 to-emerald-600",
     },
   ];
+
+  useEffect(() => {
+    const storedLoginUser = localStorage.getItem('loginUser');
+    setCurrentUser(storedLoginUser ? JSON.parse(storedLoginUser) : null);
+    }, []);
+
+
+
+    // useEffect(() => {
+    //   if (isAuthenticated) {
+    //     localStorage.setItem('auth', 'true');
+    //     localStorage.setItem('loginUser', JSON.stringify(currentUser));
+    //   }else{
+    //     localStorage.setItem('auth', 'false');
+    //     localStorage.removeItem('loginUser');
+    //   }}, [isAuthenticated]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">

@@ -10,7 +10,7 @@ const LoginScreen: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, currentUser, setCurrentUser } = useAuth();
   const navigateTo = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,12 +25,23 @@ const LoginScreen: React.FC = () => {
       // onLoginSuccess();
       navigateTo("/loggedIn/menu");
       console.log("login Suceeded");
-      sessionStorage.setItem('auth', 'true');
+      localStorage.setItem('auth', 'true');
       sessionStorage.setItem('userToken', 'abc123');
     } else {
       setError('メールアドレスまたはパスワードが正しくありません');
     }
   };
+
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     localStorage.setItem('auth', 'true');
+  //     localStorage.setItem('loginUser', JSON.stringify(currentUser));
+  //   }else{
+  //     localStorage.setItem('auth', 'false');
+  //     localStorage.removeItem('loginUser');
+  //   }}, [isAuthenticated]);
+
+
 
   // localStorage.clear();
   // const loadLocalSession = () => {

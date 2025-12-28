@@ -1,5 +1,5 @@
 // ProtectedRoute.tsx
-import React, { type JSX } from "react";
+import React, { useEffect, type JSX } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 
@@ -8,9 +8,13 @@ interface Props {
 }
 
 const ProtectedRoute: React.FC<Props> = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, currentUser, setCurrentUser } = useAuth();
 
-  if (!isAuthenticated) {
+  const authStatus = localStorage.getItem('auth');
+
+  const storedUser = localStorage.getItem('loginUser');
+
+  if (!isAuthenticated && authStatus === 'false' && storedUser === null) {
     // ログインしていなければリダイレクト
     return <Navigate to="/" replace />;
   }
