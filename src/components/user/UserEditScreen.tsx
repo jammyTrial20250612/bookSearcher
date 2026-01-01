@@ -1,13 +1,13 @@
 // ============================================================================
 // ユーザー詳細画面
 // ============================================================================
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import type User from "../../types";
 import { useUser } from "../../context/UserContext";
 
 const UserEditScreen: React.FC = () => {
-  const { currentUser, setCurrentUser } = useAuth();
+  const { currentUser, setCurrentUser, isAuthenticated } = useAuth();
   const { updateUser } = useUser();
 
   const [bio, setBio] = useState<string>(currentUser?.bio || "");

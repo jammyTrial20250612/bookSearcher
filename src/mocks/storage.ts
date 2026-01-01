@@ -21,6 +21,7 @@ export const saveUsers = (users: User[]) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
 };
 
+
 export const loadBooks = (): Book[] => {
   const stored = localStorage.getItem(STORAGE_SECOND_KEY);
   if (stored) {

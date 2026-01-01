@@ -11,7 +11,6 @@ const ProtectedRoute: React.FC<Props> = ({ children }) => {
   const { isAuthenticated, currentUser, setCurrentUser } = useAuth();
 
   const authStatus = localStorage.getItem('auth');
-
   const storedUser = localStorage.getItem('loginUser');
 
   if (!isAuthenticated && authStatus === 'false' && storedUser === null) {
